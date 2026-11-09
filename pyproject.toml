@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "postgres-readonly-mcp"
+version = "0.1.0"
+description = "A read-only MCP server that lets Claude query a PostgreSQL database with a table allow-list, a row limit and an audit log."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Martin Lovász" }]
+dependencies = [
+    "mcp>=1.9,<2",
+    "psycopg[binary]>=3.1",
+    "sqlglot>=25",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+postgres-readonly-mcp = "postgres_readonly_mcp.server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["integration: needs a running PostgreSQL (set PG_DSN)"]

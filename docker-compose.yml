@@ -1,0 +1,14 @@
+name: pgro-mcp-demo
+
+services:
+  db:
+    image: postgres:16
+    container_name: pgro-mcp-demo-db
+    environment:
+      POSTGRES_USER: demo_admin
+      POSTGRES_PASSWORD: demo_admin_pw
+      POSTGRES_DB: invoicing_demo
+    ports:
+      - "55432:5432"
+    volumes:
+      - ./seed/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
